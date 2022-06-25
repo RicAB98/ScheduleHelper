@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>943</width>
-    <height>833</height>
+    <width>1239</width>
+    <height>816</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -23,23 +23,23 @@
    <string notr="true">background-color:rgb(255, 255, 255)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTableWidget" name="table">
+   <widget class="QTableWidget" name="schedule">
     <property name="enabled">
      <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>10</y>
+      <x>30</x>
+      <y>20</y>
       <width>591</width>
-      <height>721</height>
+      <height>751</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">border: none</string>
     </property>
     <property name="rowCount">
-     <number>23</number>
+     <number>24</number>
     </property>
     <attribute name="horizontalHeaderHighlightSections">
      <bool>true</bool>
@@ -159,6 +159,11 @@
       <string>19:00 - 19:30</string>
      </property>
     </row>
+    <row>
+     <property name="text">
+      <string>19:30 - 20:00</string>
+     </property>
+    </row>
     <column>
      <property name="text">
       <string>2ª</string>
@@ -188,10 +193,10 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>30</y>
-      <width>231</width>
-      <height>751</height>
+      <x>640</x>
+      <y>60</y>
+      <width>271</width>
+      <height>671</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="subjectsLayout" stretch="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1">
@@ -251,13 +256,515 @@
      </item>
     </layout>
    </widget>
+   <widget class="QWidget" name="layoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>60</y>
+      <width>241</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="subjectNameLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="maximumSize">
+        <size>
+         <width>11111</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Nome da Cadeira:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="subjectLineEdit"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>160</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Dia</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>160</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Início</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>1120</x>
+      <y>160</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Final</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="scheduleList">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>340</y>
+      <width>141</width>
+      <height>391</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border:none
+</string>
+    </property>
+    <property name="isWrapping" stdset="0">
+     <bool>true</bool>
+    </property>
+    <property name="sortingEnabled">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addClassButton">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>220</y>
+      <width>111</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(218, 218, 218)
+</string>
+    </property>
+    <property name="text">
+     <string>Adicionar turma</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>130</y>
+      <width>241</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="classLayout">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="maximumSize">
+        <size>
+         <width>11111</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Nome da Turma:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="classLineEdit"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="addSubjectButton">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>270</y>
+      <width>141</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(218, 218, 218)
+</string>
+    </property>
+    <property name="text">
+     <string>Adicionar cadeira</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>180</y>
+      <width>233</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="scheduleLayout">
+     <item>
+      <widget class="QComboBox" name="day">
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <item>
+        <property name="text">
+         <string>2ª</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>3ª</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>4ª</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>5ª</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>6ª</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="start">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <item>
+        <property name="text">
+         <string>08:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>08:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>09:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>09:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>10:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>10:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>11:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>11:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>12:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>12:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>13:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>13:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>14:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>14:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>15:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>15:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>16:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>16:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>17:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>17:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>18:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>18:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>19:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>19:30</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="end">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <item>
+        <property name="text">
+         <string>08:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>09:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>09:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>10:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>10:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>11:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>11:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>12:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>12:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>13:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>13:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>14:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>14:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>15:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>15:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>16:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>16:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>17:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>17:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>18:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>18:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>19:00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>19:30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>20:00</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>943</width>
+     <width>1239</width>
      <height>21</height>
     </rect>
    </property>
