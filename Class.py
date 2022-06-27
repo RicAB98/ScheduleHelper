@@ -7,4 +7,7 @@ class Class():
         text = text[text.find("- ") + 2:]
 
         self.start = text[:text.find(" -")]
-        self.end = text[text.find("- ") + 2:]
+        text = text[text.find("- ") + 2:]
+
+        self.end = text[:text.find(" (")]
+        self.name = text[text.find("(") + 1:text.find(")")]

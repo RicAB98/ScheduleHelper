@@ -11,6 +11,7 @@ class Subject(QWidget):
 
         self.name = name
         self.classes = []
+        self.classCells = []
 
         self.label.setText(name + ": ")
         
@@ -19,3 +20,6 @@ class Subject(QWidget):
                 self.classes.append(Class(c))
 
             self.comboBox.addItems(classes)
+
+    def AddClassCell(self, row, column):
+        self.classCells.append({"row": row, "column": column})
