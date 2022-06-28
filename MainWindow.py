@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import *
 from PyQt6 import uic
-import PyQt6.QtCore
+import PyQt6.QtGui as QtGui
 from Subject import Subject
 from TableInformation import TableInformation
 
@@ -11,12 +11,14 @@ class MainWindow(QMainWindow):
 
         self.numberSubjects = 0
         self.subjects = []
+        self.conflicts = {}
 
-        self.ConnectButtons()
+        self.SetSignals()
 
-    def ConnectButtons(self):
+    def SetSignals(self):
         self.addClassButton.clicked.connect(self.AddClass)
         self.addSubjectButton.clicked.connect(self.AddSubject)
+        self.scheduleList.itemDoubleClicked.connect(self.RemoveItem)
 
     def AddClass(self):
         name = self.classLineEdit.text()
@@ -35,13 +37,16 @@ class MainWindow(QMainWindow):
         subject = Subject(self.subjectLineEdit.text(), classes) #Create new Subject object
         subject.comboBox.currentIndexChanged.connect(lambda: self.SubjectComboBoxChanged(subject))
 
-
         self.subjectsLayout.itemAt(self.numberSubjects).addWidget(subject) #Get first available Layout slot to put subject
         self.subjects.append(subject) #Append to subject to Window property
         self.numberSubjects += 1
 
         self.UpdateTable(subject, 0)
         self.ClearAddSubjectInputs()
+
+    def RemoveItem(self, item):
+        row = self.scheduleList.row(item)
+        self.scheduleList.takeItem(row)
 
     #Add new subject to table
     def UpdateTable(self, subject, index):
@@ -57,14 +62,33 @@ class MainWindow(QMainWindow):
         for row in range(startRow, finalRow): #Insert subject on every row from start to finish
             item = QTableWidgetItem(subject.name)
             item.setTextAlignment(0x0084) #Align center vertically and horizontaly
-            
+
+            cellContent = self.schedule.item(row, column)
+
+            if cellContent is not None:
+                self.AddConflictBackground(item)
+                self.SetConflict(row, column, subject.name, cellContent.text())
+
             self.schedule.setItem(row, column, item)
             subject.AddClassCell(row, column)
 
     def ClearSubjectFromTable(self, subject):
         for cell in subject.classCells:
-            print(self.schedule.item(0,0))
-            self.schedule.setItem(cell["row"], cell["column"], None)
+            item = None
+
+            conflict = self.conflicts.get(f'{cell["row"]},{cell["column"]}')
+
+            if conflict is not None:
+                conflict.remove(subject.name)
+                item = QTableWidgetItem(conflict[0])
+                item.setTextAlignment(0x0084) #Align center vertically and horizontaly
+
+                if len(conflict) == 1:
+                    del self.conflicts[f'{cell["row"]},{cell["column"]}']
+                else:
+                    self.AddConflictBackground(item)
+
+            self.schedule.setItem(cell["row"], cell["column"], item)
 
         subject.classCells.clear()
   
@@ -77,3 +101,13 @@ class MainWindow(QMainWindow):
         index = subject.comboBox.currentIndex()
 
         self.UpdateTable(subject, index)
+
+    def AddConflictBackground(self, item):
+        color = QtGui.QBrush(QtGui.QColor(255, 100, 100))   
+        item.setBackground(color)
+
+    def SetConflict(self, row, column, newSubject, existingSubject):
+        if f'{row},{column}' in self.conflicts:
+            self.conflicts[f'{row},{column}'].append(newSubject)
+        else:
+            self.conflicts[f'{row},{column}'] = [existingSubject, newSubject]

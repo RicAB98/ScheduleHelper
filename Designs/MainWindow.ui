@@ -36,7 +36,8 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none</string>
+     <string notr="true">border: none;
+color: black</string>
     </property>
     <property name="rowCount">
      <number>24</number>
