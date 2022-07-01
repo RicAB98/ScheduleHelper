@@ -5,10 +5,11 @@ from PyQt6 import uic
 from Class import Class
 
 class Subject(QWidget):
-    def __init__(self, name, classes = None):
+    def __init__(self, layoutId, name, classes = None):
         super().__init__()
         uic.loadUi("Designs/SubjectLayout.ui", self)
 
+        self.layoutId = layoutId
         self.name = name
         self.classes = []
         self.classCells = []

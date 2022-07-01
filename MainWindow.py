@@ -34,11 +34,11 @@ class MainWindow(QMainWindow):
         for x in range(self.scheduleList.count()): #Get classes from List Widget
             classes.append(self.scheduleList.item(x).text())
 
-        subject = Subject(self.subjectLineEdit.text(), classes) #Create new Subject object
+        subject = Subject(self.numberSubjects, self.subjectLineEdit.text(), classes) #Create new Subject object
         subject.comboBox.currentIndexChanged.connect(lambda: self.SubjectComboBoxChanged(subject))
+        subject.removeButton.clicked.connect(lambda: self.RemoveSubject(subject))
 
         self.subjectsLayout.itemAt(self.numberSubjects).addWidget(subject) #Get first available Layout slot to put subject
-        self.subjects.append(subject) #Append to subject to Window property
         self.numberSubjects += 1
 
         self.UpdateTable(subject, 0)
@@ -97,11 +97,6 @@ class MainWindow(QMainWindow):
         self.classLineEdit.clear()
         self.subjectLineEdit.clear()
 
-    def SubjectComboBoxChanged(self, subject):
-        index = subject.comboBox.currentIndex()
-
-        self.UpdateTable(subject, index)
-
     def AddConflictBackground(self, item):
         color = QtGui.QBrush(QtGui.QColor(255, 100, 100))   
         item.setBackground(color)
@@ -111,3 +106,29 @@ class MainWindow(QMainWindow):
             self.conflicts[f'{row},{column}'].append(newSubject)
         else:
             self.conflicts[f'{row},{column}'] = [existingSubject, newSubject]
+
+    def SubjectComboBoxChanged(self, subject):
+        index = subject.comboBox.currentIndex()
+
+        self.UpdateTable(subject, index)
+
+    def RemoveSubject(self, subject):
+        layoutId = subject.layoutId
+
+        #Remove subject from Layout
+        self.ClearSubjectFromTable(subject)
+        subject.setParent(None)
+        del subject
+
+        for n in range(layoutId + 1, self.numberSubjects): #Push below subject up one layout
+            topLayout = self.subjectsLayout.itemAt(n - 1)
+            bottomLayout = self.subjectsLayout.itemAt(n)
+            widget = bottomLayout.itemAt(0).widget()
+
+            widget.layoutId -= 1
+            topLayout.addWidget(widget)
+            print(widget.name)
+
+        print("\n\n\n")
+
+        self.numberSubjects -= 1
