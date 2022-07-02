@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import *
 from PyQt6 import uic
 import PyQt6.QtGui as QtGui
+from JSONHelper import JsonHelper
 from Subject import Subject
 from TableInformation import TableInformation
 
@@ -19,6 +20,7 @@ class MainWindow(QMainWindow):
         self.addClassButton.clicked.connect(self.AddClass)
         self.addSubjectButton.clicked.connect(self.AddSubject)
         self.scheduleList.itemDoubleClicked.connect(self.RemoveItem)
+        self.exportButton.clicked.connect(self.ExportToJson)
 
     def AddClass(self):
         name = self.classLineEdit.text()
@@ -47,6 +49,15 @@ class MainWindow(QMainWindow):
     def RemoveItem(self, item):
         row = self.scheduleList.row(item)
         self.scheduleList.takeItem(row)
+
+    def ExportToJson(self):
+        subjects = []
+
+        for n in range(self.numberSubjects):
+            subject = self.subjectsLayout.itemAt(n).itemAt(0).widget()
+            subjects.append(subject)
+
+        JsonHelper.ConvertTo(subjects)
 
     #Add new subject to table
     def UpdateTable(self, subject, index):
