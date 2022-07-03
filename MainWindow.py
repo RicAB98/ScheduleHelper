@@ -1,3 +1,4 @@
+from cgitb import reset
 from PyQt6.QtWidgets import *
 from PyQt6 import uic
 import PyQt6.QtGui as QtGui
@@ -18,9 +19,10 @@ class MainWindow(QMainWindow):
 
     def SetSignals(self):
         self.addClassButton.clicked.connect(self.AddClass)
-        self.addSubjectButton.clicked.connect(self.AddSubject)
+        self.addSubjectButton.clicked.connect(lambda: self.AddSubject(None))
         self.scheduleList.itemDoubleClicked.connect(self.RemoveItem)
         self.exportButton.clicked.connect(self.ExportToJson)
+        self.importButton.clicked.connect(self.ImportJson)
 
     def AddClass(self):
         name = self.classLineEdit.text()
@@ -30,13 +32,14 @@ class MainWindow(QMainWindow):
 
         self.scheduleList.addItem(f'{day} - {start} - {end} ({name})')
 
-    def AddSubject(self):
+    def AddSubject(self, subject = None):
         classes = []
+        
+        if subject is None:
+            for x in range(self.scheduleList.count()): #Get classes from List Widget
+                classes.append(self.scheduleList.item(x).text())
+            subject = Subject(self.numberSubjects, self.subjectLineEdit.text(), classes) #Create new Subject object
 
-        for x in range(self.scheduleList.count()): #Get classes from List Widget
-            classes.append(self.scheduleList.item(x).text())
-
-        subject = Subject(self.numberSubjects, self.subjectLineEdit.text(), classes) #Create new Subject object
         subject.comboBox.currentIndexChanged.connect(lambda: self.SubjectComboBoxChanged(subject))
         subject.removeButton.clicked.connect(lambda: self.RemoveSubject(subject))
 
@@ -58,6 +61,12 @@ class MainWindow(QMainWindow):
             subjects.append(subject)
 
         JsonHelper.ConvertTo(subjects)
+
+    def ImportJson(self):
+        result = JsonHelper.Parse("horario.json")
+        for subject in result:
+            print(subject.classes)
+            self.AddSubject(subject)
 
     #Add new subject to table
     def UpdateTable(self, subject, index):
