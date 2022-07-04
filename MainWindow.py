@@ -46,7 +46,7 @@ class MainWindow(QMainWindow):
         self.subjectsLayout.itemAt(self.numberSubjects).addWidget(subject) #Get first available Layout slot to put subject
         self.numberSubjects += 1
 
-        self.UpdateTable(subject, 0)
+        self.UpdateTable(subject, subject.comboBox.currentIndex())
         self.ClearAddSubjectInputs()
 
     def RemoveItem(self, item):
@@ -65,7 +65,6 @@ class MainWindow(QMainWindow):
     def ImportJson(self):
         result = JsonHelper.Parse("horario.json")
         for subject in result:
-            print(subject.classes)
             self.AddSubject(subject)
 
     #Add new subject to table
@@ -147,8 +146,5 @@ class MainWindow(QMainWindow):
 
             widget.layoutId -= 1
             topLayout.addWidget(widget)
-            print(widget.name)
-
-        print("\n\n\n")
 
         self.numberSubjects -= 1
