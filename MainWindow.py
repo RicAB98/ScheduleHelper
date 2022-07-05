@@ -34,8 +34,10 @@ class MainWindow(QMainWindow):
 
     def AddSubject(self, subject = None):
         classes = []
-        
+
         if subject is None:
+            if not self.subjectLineEdit.text() or self.scheduleList.count() == 0:
+                return
             for x in range(self.scheduleList.count()): #Get classes from List Widget
                 classes.append(self.scheduleList.item(x).text())
             subject = Subject(self.numberSubjects, self.subjectLineEdit.text(), classes) #Create new Subject object
@@ -56,14 +58,19 @@ class MainWindow(QMainWindow):
     def ExportToJson(self):
         subjects = []
 
+        fileName = self.exportTextBox.text()
+
         for n in range(self.numberSubjects):
             subject = self.subjectsLayout.itemAt(n).itemAt(0).widget()
             subjects.append(subject)
 
-        JsonHelper.ConvertTo(subjects)
+        JsonHelper.ConvertTo(subjects, fileName)
 
     def ImportJson(self):
-        result = JsonHelper.Parse("horario.json")
+        fname = QFileDialog.getOpenFileName(self, 'Abrir ficheiro', './',"Ficheiro json (*.json)")
+
+        result = JsonHelper.Parse(fname[0])
+
         for subject in result:
             self.AddSubject(subject)
 

@@ -1,9 +1,8 @@
 import json
-from Class import Class
 from Subject import Subject
 
 class JsonHelper:
-    def ConvertTo(subjects):
+    def ConvertTo(subjects, fileName):
         dictionary = {
             "subjects": []
         }
@@ -34,7 +33,7 @@ class JsonHelper:
 
             dictionary["subjects"].append(subjectJson)
 
-        with open(f'horario.json', 'w') as f:
+        with open(f'{fileName}.json', 'w') as f:
             json.dump(dictionary, f)
 
     def Parse(file):
