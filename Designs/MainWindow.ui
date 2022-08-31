@@ -759,7 +759,7 @@ color: black</string>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>1031</x>
@@ -797,10 +797,10 @@ color: black</string>
    <widget class="QPushButton" name="importButton">
     <property name="geometry">
      <rect>
-      <x>1170</x>
+      <x>1172</x>
       <y>750</y>
       <width>132</width>
-      <height>24</height>
+      <height>22</height>
      </rect>
     </property>
     <property name="font">

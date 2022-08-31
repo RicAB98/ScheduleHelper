@@ -2,6 +2,7 @@ from cgitb import reset
 from PyQt6.QtWidgets import *
 from PyQt6 import uic
 import PyQt6.QtGui as QtGui
+from urllib3 import Retry
 from JSONHelper import JsonHelper
 from Subject import Subject
 from TableInformation import TableInformation
@@ -29,6 +30,9 @@ class MainWindow(QMainWindow):
         day = self.day.currentText()
         start = self.start.currentText()
         end = self.end.currentText()
+
+        if start >= end:
+            return
 
         self.scheduleList.addItem(f'{day} - {start} - {end} ({name})')
 
